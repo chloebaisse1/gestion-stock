@@ -98,7 +98,6 @@ export default function Home() {
           <button
             onClick={() => setIsModalOpen(true)}
             className="px-6 py-2.5 bg-indigo-500 text-white font-medium rounded-lg hover:bg-indigo-indigo-600 transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50"
-            disabled={isLoading}
           >
             Ajouter un livre
           </button>
