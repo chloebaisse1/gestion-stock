@@ -11,7 +11,7 @@ export async function DELETE(
     const bookId = parseInt(id)
 
     if (isNaN(bookId)) {
-      return NextResponse.json({ error: "Invalid book id" }, { status: 400 })
+      return NextResponse.json({ error: "ID invalide" }, { status: 400 })
     }
 
     await prisma.book.delete({
@@ -19,10 +19,12 @@ export async function DELETE(
         id: bookId,
       },
     })
-
-    return NextResponse.json({ message: "Book deleted" }, { status: 200 })
+    return NextResponse.json({ message: "Livre supprimé avec succès" })
   } catch (error) {
-    return NextResponse.json({ error: "Error deleting book" }, { status: 500 })
+    return NextResponse.json(
+      { error: "Erreur lors de la suppression" },
+      { status: 500 }
+    )
   }
 }
 
@@ -35,10 +37,11 @@ export async function PUT(
     const bookId = parseInt(id)
 
     if (isNaN(bookId)) {
-      return NextResponse.json({ error: "Invalid book id" }, { status: 400 })
+      return NextResponse.json({ error: "ID invalide" }, { status: 400 })
     }
 
     const data = await request.json()
+
     const book = await prisma.book.update({
       where: {
         id: bookId,
@@ -51,9 +54,11 @@ export async function PUT(
         stock: data.stock,
       },
     })
-
-    return NextResponse.json({ message: "Book updated", book }, { status: 200 })
+    return NextResponse.json(book)
   } catch (error) {
-    return NextResponse.json({ error: "Error updating book" }, { status: 500 })
+    return NextResponse.json(
+      { error: "Erreur lors de la modification" },
+      { status: 500 }
+    )
   }
 }
