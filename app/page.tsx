@@ -83,5 +83,10 @@ export default function Home() {
     }
   }
 
+  const openEditModal = (book: Book) => {
+    setBookToEdit(book)
+    setIsModalOpen(true)
+  }
+
   return <></>
 }
