@@ -1,18 +1,21 @@
-import { prisma } from "@/utils/db"
-import { NextResponse } from "next/server"
+import { prisma } from "@/utils/db";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const books = await prisma.book.findMany()
-    return NextResponse.json(books, { status: 200 })
+    const books = await prisma.book.findMany();
+    return NextResponse.json(books, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: "Error fetching book" }, { status: 500 })
+    return NextResponse.json(
+      { error: "Error fetching books" },
+      { status: 500 }
+    );
   }
 }
 
-export async function POST(request: NextResponse) {
+export async function POST(request: NextRequest) {
   try {
-    const data = await request.json()
+    const data = await request.json();
 
     const book = await prisma.book.create({
       data: {
@@ -22,9 +25,10 @@ export async function POST(request: NextResponse) {
         price: data.price,
         stock: data.stock,
       },
-    })
-    return NextResponse.json(book, { status: 201 })
+    });
+
+    return NextResponse.json(book, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ error: "Error creating book" }, { status: 500 })
+    return NextResponse.json({ error: "Error creating book" }, { status: 500 });
   }
 }
